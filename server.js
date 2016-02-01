@@ -3,7 +3,7 @@ var app        = express();                 // define our app using express
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var Student = require('./models/student')
-mongoose.connect('mongodb://localhost:27017/student');
+//mongoose.connect('mongodb://localhost:27017/student');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -22,7 +22,11 @@ router.route('/student')
       res.json({ message: 'Student created!', student:student});
     });
 
+router.route('/cities')
 
+	.get(function(req,res){
+		res.send([{cityName:"malmö"}]);
+	})
 app.use('/api', router);
 
 
