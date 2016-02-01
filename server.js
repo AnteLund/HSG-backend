@@ -1,14 +1,11 @@
 var express    = require('express');        // call express
 var app        = express();                 // define our app using express
 var bodyParser = require('body-parser');
-<<<<<<< HEAD
 var mongoose = require('mongoose');
 var Student = require('./models/student')
-=======
 var mongoose   = require('mongoose');
 var Student    = require('./models/student');
 var cors       = require('cors');
->>>>>>> 0248e2cadc50b7821b69f46211eed3019c43a7d6
 //mongoose.connect('mongodb://localhost:27017/student');
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -23,9 +20,13 @@ router.route('/student')
     .post(function(req, res){
       var student = new Student();
       student.firstName = req.body.firstName;
+      console.log(req.body);
       student.lastName = req.body.lastName;
       student.email = req.body.email;
-      res.json({ message: 'Student created!', student:student});
+      student.exam = req.body.exam;
+      student.yearOfGraduation = req.body.yearOfGraduation;
+      student.cityOfInterest= req.body.cityOfInterest;
+      res.json({ message: 'Student created!', name:student.firstName});
     });
 router.route('/cities')
   .get(function(req,res){
