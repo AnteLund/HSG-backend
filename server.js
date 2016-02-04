@@ -20,13 +20,14 @@ router.route('/student')
     .post(function(req, res){
       var student = new Student();
       student.firstName = req.body.firstName;
-      console.log(req.body);
       student.lastName = req.body.lastName;
       student.email = req.body.email;
       student.exam = req.body.exam;
       student.yearOfGraduation = req.body.yearOfGraduation;
-      student.cityOfInterest= req.body.cityOfInterest;
-      res.json({ message: 'Student created!', name:student.firstName});
+      student.cityOfInterest = req.body.cityOfInterest;
+      student.creationDate = new Date();
+      console.log(student);
+      res.json({ message: 'Student created!', fullStudent:student});
     });
 router.route('/cities')
   .get(function(req,res){
@@ -39,14 +40,28 @@ router.route('/cities')
       },
       {
         cityName : 'Göteborg'
+      },
+      {
+        cityName : 'Boden'
       }];
     res.send(capCities)
   });
 
-router.route('/cities')
+router.route('/roles')
 
 	.get(function(req,res){
-		res.send([{cityName:"malmö"}]);
+    var workRoles = [
+      {
+        roleName:'Project manager'
+      },
+      {
+        roleName:'Software developer'
+      },
+      {
+        roleName: 'Business analyst'
+      }
+    ]
+		res.send(workRoles);
 	})
 app.use('/api', router);
 
