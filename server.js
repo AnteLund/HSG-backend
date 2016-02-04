@@ -6,8 +6,13 @@ var Student = require('./models/student')
 var mongoose   = require('mongoose');
 var Student    = require('./models/student');
 var cors       = require('cors');
-//mongoose.connect('mongodb://localhost:27017/student');
-
+mongoose.connect('mongodb://localhost:27017/student');
+var db = mongoose.connection;
+mongoose.set('debug, true');
+db.on('error',console.error.bind(console,'connection error:'));
+db.once('open',function(){
+  console.log("Connected to DB");
+})
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
@@ -15,7 +20,7 @@ var port = process.env.PORT || 8080;
 
 var router = express.Router();
 
-router.route('/student')
+router.route('/students')
     // add new student
     .post(function(req, res){
       var student = new Student();
@@ -24,11 +29,45 @@ router.route('/student')
       student.email = req.body.email;
       student.exam = req.body.exam;
       student.yearOfGraduation = req.body.yearOfGraduation;
-      student.cityOfInterest = req.body.cityOfInterest;
-      student.creationDate = new Date();
-      console.log(student);
-      res.json({ message: 'Student created!', fullStudent:student});
-    });
+      studentInsert.cityOfInterest = req.body.cityOfInterest;
+      studentInsert.creationDate = new Date();
+      studentInsert.save(function(err){
+        if(err){
+          return console.error(err);
+        }
+        console.log("Student created")
+      })
+      res.json({ message: 'Student created!'});
+    })
+    // Retrive list of students
+    .get(function(req,res){
+      Student.find(function(err,students){
+        if(err) return console.error(err);
+        var answer = {length:students.length, searchtime: new Date(), allStudent:students}
+        res.json(answer);
+      })
+    })
+
+  router.route('/students/:student_id')
+    .get(function(req,res){
+      Student.findById(req.params.student_id,function(err, student){
+        if(err) return console.error(err);
+        console.log(student);
+        res.json(student);
+      })
+    })
+    .put(function(req, res){
+      Student.findById(req.params.student_id, function(err, student){
+        if(!student) return console.error("Could not load student");
+        student.modified = new Date();
+        student.firstName = req.body.firstName;
+        student.lastName = req.body.lastName;
+        student.email = req.body.email;
+        student.exam = req.body.exam;
+        student.yearOfGraduation = req.body.yearOfGraduation;
+        student.cityOfInterest = req.body.cityOfInterest;
+      })
+    })
 router.route('/cities')
   .get(function(req,res){
     var capCities = [
