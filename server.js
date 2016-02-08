@@ -68,6 +68,13 @@ router.route('/students')
         student.cityOfInterest = req.body.cityOfInterest;
       })
     })
+    .delete(function(req, res){
+      Student.findByIdAndRemove(req.params.student_id, function(err, student){
+        if(err) return console.error(err);
+        console.log(student);
+        res.json(student);
+      })
+    })
 router.route('/cities')
   .get(function(req,res){
     var capCities = [
