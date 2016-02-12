@@ -1,5 +1,7 @@
 var mongoose   = require('mongoose');
 var Schema     = mongoose.Schema;
+
+
 var StudentSchema   = new Schema({
     firstName: String,
     lastName: String,
@@ -7,7 +9,11 @@ var StudentSchema   = new Schema({
     exam: String,
     yearOfGraduation: String,
     cityOfInterest: [{cityName : String}],
-    creationDate: Date
+    creationDate: Date,
+    comments:[{
+      commentText: String,
+      authur: String,
+      creationDate: Date}]
 });
 
 module.exports = mongoose.model('Student', StudentSchema);

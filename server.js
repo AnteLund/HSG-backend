@@ -3,8 +3,7 @@ var app        = express();                 // define our app using express
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var Student = require('./models/student')
-var mongoose   = require('mongoose');
-var Student    = require('./models/student');
+var City = require('./models/city')
 var cors       = require('cors');
 mongoose.connect('mongodb://localhost:27017/student');
 var db = mongoose.connection;
@@ -29,9 +28,9 @@ router.route('/students')
       student.email = req.body.email;
       student.exam = req.body.exam;
       student.yearOfGraduation = req.body.yearOfGraduation;
-      studentInsert.cityOfInterest = req.body.cityOfInterest;
-      studentInsert.creationDate = new Date();
-      studentInsert.save(function(err){
+      student.cityOfInterest = req.body.cityOfInterest;
+      student.creationDate = new Date();
+      student.save(function(err){
         if(err){
           return console.error(err);
         }
@@ -75,24 +74,47 @@ router.route('/students')
         res.json(student);
       })
     })
+
+  router.route('/students/:student_id/comments')
+    .post(function(req, res){
+      var newComment = {
+        commentText : req.body.commentText,
+        authur : req.body.authur,
+        creationDate : new Date()
+      }
+
+      console.log(newComment);
+      Student.findByIdAndUpdate(req.params.student_id, {$push: {comments: newComment}},{'new':true}, function(err, comment){
+        if(!comment) return console.error("Could not load student");
+        res.json(comment);
+      })
+    });
+router.route('/students/:student_id/comments/:comment_id')
+  .delete(function(req,res){
+    Student.update({_id: req.params.student_id},{$pull:{"comments":{_id: req.params.comment_id}}}, function(err, comment){
+      res.json(comment);
+    });
+  })
 router.route('/cities')
   .get(function(req,res){
-    var capCities = [
-      {
-        cityName : 'Malmö'
-      },
-      {
-        cityName : 'Stockholm'
-      },
-      {
-        cityName : 'Göteborg'
-      },
-      {
-        cityName : 'Boden'
-      }];
-    res.send(capCities)
-  });
+    City.find(function(err,cities){
+      if(err) return console.error(err);
+      res.json(cities);
+    });
+  })
+  .post(function(req,res){
+    var city = new City();
+    city.cityName = req.body.cityName;
+    city.creationDate = new Date();
+    city.active = true;
+    city.save(function(err){
+      if(err){
+        return console.error(err);
+      }
+      res.json("City Added");
+    })
 
+  })
 router.route('/roles')
 
 	.get(function(req,res){
