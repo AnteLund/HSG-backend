@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 var Student = require('./models/student')
 var City = require('./models/city')
 var cors       = require('cors');
-mongoose.connect('mongodb://ec2-52-30-62-85.eu-west-1.compute.amazonaws.com:8080/student');
+mongoose.connect('mongodb://ec2-52-30-62-85.eu-west-1.compute.amazonaws.com:27017/student');
 var db = mongoose.connection;
 mongoose.set('debug, true');
 db.on('error',console.error.bind(console,'connection error:'));
