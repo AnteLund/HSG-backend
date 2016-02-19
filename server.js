@@ -29,6 +29,7 @@ router.route('/students')
       student.exam = req.body.exam;
       student.yearOfGraduation = req.body.yearOfGraduation;
       student.cityOfInterest = req.body.cityOfInterest;
+      student.roleOfnterest = req.body.roleOfInterest;
       student.creationDate = new Date();
       student.save(function(err){
         if(err){

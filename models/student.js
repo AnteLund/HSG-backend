@@ -9,6 +9,7 @@ var StudentSchema   = new Schema({
     exam: String,
     yearOfGraduation: String,
     cityOfInterest: [{cityName : String}],
+    roleOfInterest: [{roleName : String}],
     creationDate: Date,
     comments:[{
       commentText: String,
