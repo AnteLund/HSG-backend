@@ -37,7 +37,7 @@ router.route('/students')
         }
         console.log("Student created")
       })
-      res.json({ message: 'Student created!'});
+      res.json({ message: 'Student created!', student: student});
     })
     // Retrive list of students
     .get(function(req,res){
@@ -121,13 +121,22 @@ router.route('/roles')
 	.get(function(req,res){
     var workRoles = [
       {
-        roleName:'Project manager'
+        roleName:'Business manager'
       },
       {
-        roleName:'Software developer'
+        roleName:':Java Developer'
       },
       {
         roleName: 'Business analyst'
+      },
+      {
+        roleName: '.NET Developer'
+      },
+      {
+        roleName: 'Front-end developer/UX designer'
+      },
+      {
+        roleName: 'Application Specialist'
       }
     ]
 		res.send(workRoles);
