@@ -138,6 +138,9 @@ router.route('/roles')
       },
       {
         roleName: 'Application Specialist'
+      },
+      {
+        roleName: 'Infrastructure Services Technology Consultant'
       }
     ]
 		res.send(workRoles);
