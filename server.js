@@ -116,6 +116,7 @@ router.route('/cities')
     })
 
   })
+
 router.route('/roles')
 
 	.get(function(req,res){
@@ -124,7 +125,7 @@ router.route('/roles')
         roleName:'Business manager'
       },
       {
-        roleName:':Java Developer'
+        roleName:'Java Developer'
       },
       {
         roleName: 'Business analyst'
