@@ -122,25 +122,22 @@ router.route('/roles')
 	.get(function(req,res){
     var workRoles = [
       {
-        roleName:'Business Manager'
+        roleName: 'Business Analyst'
       },
       {
         roleName:'Java Developer'
       },
       {
-        roleName: 'Business Analyst'
-      },
-      {
         roleName: '.NET Developer'
       },
       {
-        roleName: 'Front-end Developer/UX Designer'
+        roleName: 'Solution Architect'
       },
       {
-        roleName: 'Application Specialist'
+        roleName:'Business Manager'
       },
       {
-        roleName: 'Infrastructure Services Technology'
+        roleName:'Front-end Developer/UX Designer'
       }
     ]
 		res.send(workRoles);
