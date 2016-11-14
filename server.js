@@ -109,6 +109,21 @@ router.route('/cities')
         cityName:"Malmö",
         creationDate:"",
         active:"true"
+      },
+      {
+        cityName:"Göteborg",
+        creationDate:"",
+        active:"true"
+      },
+      {
+        cityName:"Stockholm",
+        creationDate:"",
+        active:"true"
+      },
+      {
+        cityName:"Göteborg",
+        creationDate:"",
+        active:"true"
       }
     ]
     res.send(cities);
