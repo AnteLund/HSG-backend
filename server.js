@@ -108,11 +108,10 @@ router.route('/cities')
       {
         cityName:"Malmö",
         creationDate:"",
-        active;"true"
-
+        active:"true"
       }
-
     ]
+    res.send(cities);
   })
   .post(function(req,res){
     var city = new City();
