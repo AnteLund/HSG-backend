@@ -98,10 +98,21 @@ router.route('/students/:student_id/comments/:comment_id')
   })
 router.route('/cities')
   .get(function(req,res){
+    /*
     City.find(function(err,cities){
       if(err) return console.error(err);
       res.json(cities);
     });
+    */
+    var cities = [
+      {
+        cityName:"Malmö",
+        creationDate:"",
+        active;"true"
+
+      }
+
+    ]
   })
   .post(function(req,res){
     var city = new City();
