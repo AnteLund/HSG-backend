@@ -121,7 +121,7 @@ router.route('/cities')
         active:"true"
       },
       {
-        cityName:"Göteborg",
+        cityName:"Helsingborg",
         creationDate:"",
         active:"true"
       }
